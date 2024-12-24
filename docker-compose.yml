@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+#    volumes:
+#      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres-compose-network
+  pgadmin-docker:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "dev@email.com"
+      PGADMIN_DEFAULT_PASSWORD: "dev"
+    networks:
+      - postgres-compose-network
+    ports:
+      - "16543:80"
+
+networks:
+  postgres-compose-network:
+    driver: bridge
